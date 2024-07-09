@@ -2,13 +2,17 @@
 import MyForm from "@/components/custom/my-form/MyForm";
 import MyInput from "@/components/custom/my-form/MyInput";
 import { Button } from "@/components/ui/button";
+import { useLoginMutation } from "@/redux/features/auth.api";
+import { TLoginData } from "@/redux/types/types.global";
 import { loginSchema } from "@/schemas/login.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FieldValues } from "react-hook-form";
 
 const Login = () => {
-  function onSubmit(data: FieldValues) {
-    console.log(data);
+  const [login] = useLoginMutation();
+  async function onSubmit(data: FieldValues) {
+    const res = await login(data as TLoginData);
+    console.log(res);
   }
   return (
     <div className="h-screen bg-[#262626] w-full flex justify-center items-center home text-white">
