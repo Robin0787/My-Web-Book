@@ -3,3 +3,8 @@ export interface RootState {
     value: number;
   };
 }
+
+export interface TLoginData {
+  email: string;
+  password: string;
+}
