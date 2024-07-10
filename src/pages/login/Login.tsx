@@ -2,17 +2,37 @@
 import MyForm from "@/components/custom/my-form/MyForm";
 import MyInput from "@/components/custom/my-form/MyInput";
 import { Button } from "@/components/ui/button";
-import { useLoginMutation } from "@/redux/features/auth.api";
+import { useLoginMutation } from "@/redux/features//auth/auth.api";
+import { setToken } from "@/redux/features/auth/auth.slice";
+import { useAppDispatch } from "@/redux/hooks";
 import { TLoginData } from "@/redux/types/types.global";
 import { loginSchema } from "@/schemas/login.schema";
+import { TResponseFromAPI } from "@/types/types.global";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { jwtDecode } from "jwt-decode";
 import { FieldValues } from "react-hook-form";
+
+interface TData {
+  token: string;
+}
 
 const Login = () => {
   const [login] = useLoginMutation();
+  const dispatch = useAppDispatch();
   async function onSubmit(data: FieldValues) {
-    const res = await login(data as TLoginData);
-    console.log(res);
+    try {
+      const res: TResponseFromAPI<TData> = await login(
+        data as TLoginData
+      ).unwrap();
+      const token = res?.data?.token;
+      if (res.success && token) {
+        const decoded = jwtDecode(res.data.token);
+        console.log(decoded);
+        dispatch(setToken(token));
+      }
+    } catch (error: any) {
+      console.log(error?.data?.message || "Something went wrong!");
+    }
   }
   return (
     <div className="h-screen bg-[#262626] w-full flex justify-center items-center home text-white">

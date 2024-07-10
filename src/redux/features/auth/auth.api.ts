@@ -1,5 +1,5 @@
-import { baseApi } from "../baseApi";
-import { TLoginData } from "../types/types.global";
+import { baseApi } from "../../baseApi";
+import { TLoginData } from "../../types/types.global";
 
 export const AuthAPI = baseApi.injectEndpoints({
   endpoints: (builder) => ({
