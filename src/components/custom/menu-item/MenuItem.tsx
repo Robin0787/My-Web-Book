@@ -1,24 +1,25 @@
 import { TCategory } from "@/components/shared/side-menu/SideMenu";
-import { useLocation, useSearchParams } from "react-router-dom";
+import {
+  selectCurrentCategory,
+  setCategory,
+} from "@/redux/features/category/category.slice";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import Icon from "../icon/Icon";
 
 const MenuItem = (category: TCategory) => {
-  const location = useLocation();
-  const searchParams = new URLSearchParams(location.search);
-  const queryValue = searchParams.get("q");
-  const [, setSearchParams] = useSearchParams();
+  const currentCategory = useAppSelector(selectCurrentCategory);
+  const dispatch = useAppDispatch();
 
   function handleClick() {
-    setSearchParams({ q: category?.name?.toLowerCase() });
+    dispatch(setCategory(category.name.toLowerCase()));
   }
+
+  const condition = currentCategory === category.name.toLowerCase();
+  console.log(currentCategory);
 
   return (
     <li
-      className={`menu ${
-        queryValue === category?.name?.toLowerCase()
-          ? "bg-[#262626] hover:bg-[#ffffff50]"
-          : ""
-      }`}
+      className={`menu ${condition ? "bg-[#ffffff30]" : ""}`}
       onClick={handleClick}
     >
       <Icon iconName={category.icon} size={20} />
