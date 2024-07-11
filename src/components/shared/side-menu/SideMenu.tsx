@@ -4,13 +4,28 @@ import MenuItemSkeleton from "@/components/custom/menu-item/MenuItemSkeleton";
 import AddCategoryDialog from "@/components/custom/my-dialog/AddCategoryDialog";
 import { useGetCategoriesQuery } from "@/redux/features/category/category.api";
 import { TCategory } from "@/types/types.category";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const SideMenu = () => {
+  const [openDialog, setOpenDialog] = useState(false);
   const { data, isLoading, isError, error } = useGetCategoriesQuery(undefined);
+  const navigate = useNavigate();
   const errorMessage =
     (isError && (error as any)?.data?.message) || (error as any)?.error;
 
   const categories: TCategory[] = data?.data || [];
+
+  if (errorMessage === "jwt expired") {
+    navigate("/login");
+  }
+
+  function handleOpenDialog() {
+    setOpenDialog(true);
+  }
+  function handleCloseDialog() {
+    setOpenDialog(false);
+  }
 
   return (
     <section className="h-full w-full relative">
@@ -48,7 +63,11 @@ const SideMenu = () => {
         </ul>
       </article>
       {/* Footer Section */}
-      <AddCategoryDialog />
+      <AddCategoryDialog
+        isOpen={openDialog}
+        handleOpenDialog={handleOpenDialog}
+        handleCloseDialog={handleCloseDialog}
+      />
     </section>
   );
 };

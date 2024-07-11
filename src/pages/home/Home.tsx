@@ -7,13 +7,19 @@ import { selectCurrentCategory } from "@/redux/features/category/category.slice"
 import { useGetWebsitesQuery } from "@/redux/features/website/website.api";
 import { useAppSelector } from "@/redux/hooks";
 import { TWebsite } from "@/types/types.website";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const category = useAppSelector(selectCurrentCategory);
+  const navigate = useNavigate();
   const { data, isError, error, isLoading } = useGetWebsitesQuery(category);
   const errorMessage =
     (isError && (error as any)?.data?.message) || (error as any)?.error;
   const websites: TWebsite[] = data?.data || [];
+
+  if (errorMessage === "jwt expired") {
+    navigate("/login");
+  }
 
   return (
     <section className={cn("h-full w-full rounded-lg")}>
