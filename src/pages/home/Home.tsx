@@ -1,6 +1,10 @@
 import { cn } from "@/lib/utils";
+import { useGetWebsitesQuery } from "@/redux/features/website/website.api";
 
 const Home = () => {
+  const { data } = useGetWebsitesQuery(undefined);
+  const websites = data?.data || [];
+  console.log(websites);
   return (
     <div
       className={cn(
