@@ -1,10 +1,14 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import MenuItem from "@/components/custom/menu-item/MenuItem";
 import MenuItemSkeleton from "@/components/custom/menu-item/MenuItemSkeleton";
+import AddCategoryDialog from "@/components/custom/my-dialog/AddCategoryDialog";
 import { useGetCategoriesQuery } from "@/redux/features/category/category.api";
 import { TCategory } from "@/types/types.category";
 
 const SideMenu = () => {
-  const { data, isLoading } = useGetCategoriesQuery(undefined);
+  const { data, isLoading, isError, error } = useGetCategoriesQuery(undefined);
+  const errorMessage =
+    (isError && (error as any)?.data?.message) || (error as any)?.error;
 
   const categories: TCategory[] = data?.data || [];
 
@@ -18,7 +22,7 @@ const SideMenu = () => {
       </div>
       {/* Categories section */}
       <article id="menuScrollBar" className="h-[80%] overflow-y-auto">
-        <ul className="w-full flex flex-col justify-center items-center gap-3 list-none px-5 2xl:px-8 py-4">
+        <ul className="w-full h-full flex flex-col justify-start items-center gap-3 list-none px-5 2xl:px-8 py-4">
           {isLoading ? (
             <>
               <MenuItemSkeleton loader={true} />
@@ -30,19 +34,21 @@ const SideMenu = () => {
             </>
           ) : (
             <>
-              {categories?.map((category) => (
-                <MenuItem key={category._id} category={category} />
-              ))}
+              {errorMessage ? (
+                <div className="flex justify-center items-center h-full">
+                  <p>{errorMessage}</p>
+                </div>
+              ) : (
+                categories?.map((category) => (
+                  <MenuItem key={category._id} category={category} />
+                ))
+              )}
             </>
           )}
         </ul>
       </article>
       {/* Footer Section */}
-      <div className="h-[10%] w-full bg-[#00000030] rounded-b-lg hover:bg-[#00000060] duration-300 cursor-pointer">
-        <div className="flex justify-center items-center h-full gap-3 uppercase font-semibold tracking-[0.5px]">
-          <span>Add Category</span>
-        </div>
-      </div>
+      <AddCategoryDialog />
     </section>
   );
 };

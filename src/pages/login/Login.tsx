@@ -48,13 +48,13 @@ const Login = () => {
               type="email"
               name="email"
               placeholder="Email"
-              className="bg-transparent rounded-full border border-gray-700 p-4 w-full  outline-none focus:outline-none focus:border-gray-300 duration-300"
+              className="bg-transparent rounded-full border border-gray-700 p-4 w-full outline-none focus:outline-none focus:border-gray-300 duration-300"
             />
             <MyInput
               type="password"
               name="password"
               placeholder="Password"
-              className="bg-transparent rounded-full border border-gray-700 p-4 w-full  outline-none focus:outline-none focus:border-gray-300 duration-300"
+              className="bg-transparent rounded-full border border-gray-700 p-4 w-full outline-none focus:outline-none focus:border-gray-300 duration-300"
             />
           </div>
           <div className="mt-10 relative">

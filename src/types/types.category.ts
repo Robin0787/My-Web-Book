@@ -5,3 +5,9 @@ export interface TCategory {
   addedBy: string;
   canBeDeleted: boolean;
 }
+
+export interface TCreateCategory {
+  name: string;
+  icon: string;
+  canBeDeleted: boolean;
+}

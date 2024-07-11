@@ -41,6 +41,10 @@
   background-color: transparent;
 }
 
+.dialog-default-close-button: {
+  display: "none";
+}
+
 /* Name link styles */
 .item-name {
   position: relative;

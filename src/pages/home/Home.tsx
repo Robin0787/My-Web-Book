@@ -11,7 +11,8 @@ import { TWebsite } from "@/types/types.website";
 const Home = () => {
   const category = useAppSelector(selectCurrentCategory);
   const { data, isError, error, isLoading } = useGetWebsitesQuery(category);
-  const errorMessage = isError && (error as any)?.data?.message;
+  const errorMessage =
+    (isError && (error as any)?.data?.message) || (error as any)?.error;
   const websites: TWebsite[] = data?.data || [];
 
   return (
