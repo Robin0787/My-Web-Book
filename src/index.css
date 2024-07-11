@@ -94,7 +94,7 @@
 }
 
 .currentMenu {
-  background-color: #ffffff50;
+  background-color: #ffffff40;
 }
 
 .menu:hover {
@@ -127,9 +127,9 @@
 
 @media screen and (width >= 1536px) {
   .menu,
-  .addMenu {
+  .currentMenu {
     font-size: 18px;
-    padding: 15px 25px;
+    padding: 14px 25px;
     gap: 15px;
   }
 }
