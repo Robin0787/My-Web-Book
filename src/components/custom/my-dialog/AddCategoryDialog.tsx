@@ -18,7 +18,9 @@ import { TResponseFromAPI } from "@/types/types.global";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { FieldValues } from "react-hook-form";
+import toast from "react-hot-toast";
 import { ImCross } from "react-icons/im";
+import MyButton from "../my-button/MyButton";
 import MyDropDown, { TOptionItem } from "../my-form/MyDropDown";
 
 const categoryOptions: TOptionItem[] = [
@@ -44,9 +46,11 @@ function AddCategoryDialog({
   handleCloseDialog,
 }: TAddCategoryDialogProps) {
   const [errorMessage, setErrorMessage] = useState();
+  const [submitLoading, setSubmitLoading] = useState<boolean>(false);
   const [createCategory] = useCreateCategoryMutation();
 
   const handleCreateCategory = async (data: FieldValues) => {
+    setSubmitLoading(true);
     if (data.canBeDeleted === "Yes") {
       data.canBeDeleted = true;
     } else {
@@ -58,9 +62,12 @@ function AddCategoryDialog({
         payload
       ).unwrap();
       if (res.success) {
+        toast.success(res.message || "Category is created successfully.");
         handleCloseDialog();
       }
+      setSubmitLoading(false);
     } catch (error: any) {
+      setSubmitLoading(false);
       const message = error?.data?.message;
       setErrorMessage(message);
     }
@@ -107,13 +114,14 @@ function AddCategoryDialog({
               />
             </div>
             <div className="mt-10 relative">
-              <Button
+              <MyButton
                 type="submit"
                 variant={"secondary"}
-                className="bg-[#585858] rounded-full border border-gray-700 py-3 w-full hover:bg-transparent duration-300"
+                className="bg-[#585858] rounded-full border border-gray-700 p-4 w-full hover:bg-transparent duration-300"
+                loading={submitLoading}
               >
                 Create
-              </Button>
+              </MyButton>
               <div className={cn("absolute w-full -bottom-7 left-0")}>
                 <p
                   className={cn(
