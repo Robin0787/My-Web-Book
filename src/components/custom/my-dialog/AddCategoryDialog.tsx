@@ -95,7 +95,7 @@ function AddCategoryDialog({
       <DialogContent className="absolute left-0 top-0 z-10 w-full h-screen flex justify-center items-center bg-black/80 text-white duration-300">
         <section
           className={cn(
-            "bg-[#262626] rounded-lg shadow-[1px_1px_10px_2px] shadow-white/10 border border-gray-700 p-10 w-[30%] max-w-[600px] relative"
+            "bg-[#262626] rounded-lg shadow-[1px_1px_10px_2px] shadow-white/10 border border-gray-700 p-10 w-[70%] md:w-[50%] lg:w-[30%] max-w-[600px] min-w-[350px] relative"
           )}
         >
           <DialogHeader className="pb-6 text-center text-2xl tracking-[0.5px] capitalize font-bold">
@@ -114,8 +114,11 @@ function AddCategoryDialog({
               />
               <div
                 id="iconList"
-                className="w-full max-h-[138px] rounded-xl bg-[#262626] px-5 py-[10px] border border-gray-700 flex flex-wrap gap-2 justify-evenly items-center  overflow-auto"
+                className="relative w-full max-h-[138px] rounded-xl bg-[#262626] px-5 pb-2 pt-8 border border-gray-700 flex flex-wrap gap-2 justify-evenly items-center  overflow-auto"
               >
+                <span className="absolute top-2 left-1/2 -translate-x-1/2 text-gray-300">
+                  Select an icon
+                </span>
                 {iconNames.map((name, index) => (
                   <p
                     key={index}
