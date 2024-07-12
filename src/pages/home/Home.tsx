@@ -41,18 +41,6 @@ const Home = () => {
               {websites.map((item: TWebsite, index: number) => (
                 <MainItem key={index} item={item} />
               ))}
-              {websites.map((item: TWebsite, index: number) => (
-                <MainItem key={index} item={item} />
-              ))}
-              {websites.map((item: TWebsite, index: number) => (
-                <MainItem key={index} item={item} />
-              ))}
-              {websites.map((item: TWebsite, index: number) => (
-                <MainItem key={index} item={item} />
-              ))}
-              {websites.map((item: TWebsite, index: number) => (
-                <MainItem key={index} item={item} />
-              ))}
             </section>
           )}
         </section>

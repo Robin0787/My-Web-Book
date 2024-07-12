@@ -10,9 +10,5 @@ export const createCategoryValidationSchema = z.object({
       (name) => !(name.length > 25),
       "Name can't be longer 25 characters!"
     ),
-  icon: z.string({
-    required_error: "icon is required",
-    invalid_type_error: "icon must be a string",
-  }),
   canBeDeleted: z.string().optional(),
 });

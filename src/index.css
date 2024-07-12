@@ -16,15 +16,18 @@
 
 /* Menu scroll bar */
 
-#menuScrollBar::-webkit-scrollbar {
+#menuScrollBar::-webkit-scrollbar,
+#iconList::-webkit-scrollbar {
   -webkit-appearance: none;
   width: 5px;
 }
-#menuScrollBar::-webkit-scrollbar-thumb {
+#menuScrollBar::-webkit-scrollbar-thumb,
+#iconLit::-webkit-scrollbar-thumb {
   background-color: #ffffff20;
   border-radius: 100px;
 }
-#menuScrollBar::-webkit-scrollbar-track {
+#menuScrollBar::-webkit-scrollbar-track,
+#iconList::-webkit-scrollbar-track {
   background-color: transparent;
 }
 
@@ -78,6 +81,7 @@
 .menu,
 .currentMenu {
   width: 100%;
+  min-height: 45px;
   display: flex;
   justify-content: left;
   align-items: center;

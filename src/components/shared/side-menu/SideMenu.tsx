@@ -36,7 +36,7 @@ const SideMenu = () => {
         </div>
       </div>
       {/* Categories section */}
-      <article id="menuScrollBar" className="h-[80%] overflow-y-auto">
+      <article id="menuScrollBar" className="h-[80%] w-full overflow-y-scroll">
         <ul className="w-full h-full flex flex-col justify-start items-center gap-3 list-none px-5 2xl:px-8 py-4">
           {isLoading ? (
             <>

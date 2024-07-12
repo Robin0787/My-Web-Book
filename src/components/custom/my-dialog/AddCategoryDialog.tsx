@@ -20,6 +20,8 @@ import { useState } from "react";
 import { FieldValues } from "react-hook-form";
 import toast from "react-hot-toast";
 import { ImCross } from "react-icons/im";
+import Icon from "../icon/Icon";
+import iconNames from "../icon/icon.name";
 import MyButton from "../my-button/MyButton";
 import MyDropDown, { TOptionItem } from "../my-form/MyDropDown";
 
@@ -45,18 +47,27 @@ function AddCategoryDialog({
   handleOpenDialog,
   handleCloseDialog,
 }: TAddCategoryDialogProps) {
-  const [errorMessage, setErrorMessage] = useState();
+  const [errorMessage, setErrorMessage] = useState<string | undefined>(
+    undefined
+  );
   const [submitLoading, setSubmitLoading] = useState<boolean>(false);
+  const [categoryIconName, setCategoryIconName] = useState<string | null>(null);
   const [createCategory] = useCreateCategoryMutation();
 
   const handleCreateCategory = async (data: FieldValues) => {
-    setSubmitLoading(true);
+    if (!categoryIconName) {
+      setErrorMessage("Icon is required!");
+      return;
+    }
     if (data.canBeDeleted === "Yes") {
       data.canBeDeleted = true;
     } else {
       data.canBeDeleted = false;
     }
     const payload: TCreateCategory = data as TCreateCategory;
+    payload.icon = categoryIconName as string;
+    setSubmitLoading(true);
+    setErrorMessage(undefined);
     try {
       const res: TResponseFromAPI<TCategory[]> = await createCategory(
         payload
@@ -101,12 +112,24 @@ function AddCategoryDialog({
                 placeholder="Name"
                 className="bg-transparent rounded-full border border-gray-700 px-5 py-[10px] w-full outline-none focus:outline-none focus:border-gray-300 duration-300 placeholder:text-xs"
               />
-              <MyInput
-                type="string"
-                name="icon"
-                placeholder="Icon"
-                className="bg-transparent rounded-full border border-gray-700 px-5 py-[10px] w-full outline-none focus:outline-none focus:border-gray-300 duration-300 placeholder:text-xs"
-              />
+              <div
+                id="iconList"
+                className="w-full max-h-[138px] rounded-xl bg-[#262626] px-5 py-[10px] border border-gray-700 flex flex-wrap gap-2 justify-evenly items-center  overflow-auto"
+              >
+                {iconNames.map((name, index) => (
+                  <p
+                    key={index}
+                    className={`p-2 hover:bg-white/30 rounded-lg cursor-pointer duration-300 ${
+                      name == categoryIconName
+                        ? "bg-white/30"
+                        : "bg-transparent"
+                    }`}
+                    onClick={() => setCategoryIconName(name)}
+                  >
+                    <Icon iconName={name} size={20} />
+                  </p>
+                ))}
+              </div>
               <MyDropDown
                 name="canBeDeleted"
                 placeholder="Can Be Deleted (optional)"
