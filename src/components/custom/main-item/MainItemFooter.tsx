@@ -1,7 +1,8 @@
 import { selectCurrentCategory } from "@/redux/features/category/category.slice";
 import { useAppSelector } from "@/redux/hooks";
-import { FaTrashAlt } from "react-icons/fa";
-import { IoAddCircle } from "react-icons/io5";
+import DeleteCategory from "../category/DeleteCategory";
+import EditCategory from "../category/EditCategory";
+import AddWebsite from "../website/AddWebsite";
 
 const MainItemFooter = () => {
   const category = useAppSelector(selectCurrentCategory);
@@ -11,14 +12,12 @@ const MainItemFooter = () => {
         <h1 className="uppercase text-white font-semibold 2xl:text-lg">
           {category || "Home"}
         </h1>
-        <button className="p-[6px] rounded-full text-white bg-[#ffffff15] hover:bg-[#ffffff25] duration-300">
-          <FaTrashAlt size={15} />
-        </button>
+        <div className="flex justify-start items-center gap-[6px]">
+          <EditCategory />
+          <DeleteCategory />
+        </div>
       </div>
-      <button className="text-primary flex justify-start items-center gap-2 uppercase px-3 py-1 2xl:py-2 2xl:px-5 bg-[#ffffff08] hover:bg-[#ffffff20] rounded-[14px] duration-300">
-        <IoAddCircle size={20} />
-        <span>Add</span>
-      </button>
+      <AddWebsite />
     </div>
   );
 };

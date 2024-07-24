@@ -47,27 +47,27 @@ const Login = () => {
   }
   return (
     <div className="h-screen bg-[#262626] w-full flex justify-center items-center home text-white overflow-hidden">
-      <div className="w-[35%] px-12 py-16 rounded-lg shadow-[1px_1px_10px_2px] shadow-white/10 border border-gray-700">
+      <div className="w-[35%] px-12 py-16 rounded-lg shadow-[1px_1px_10px_2px] shadow-white/10 border border-gray-500">
         <MyForm onSubmit={onSubmit} resolver={zodResolver(loginSchema)}>
           <div className="w-full space-y-6 ">
             <MyInput
               type="email"
               name="email"
               placeholder="Email"
-              className="bg-transparent rounded-full border border-gray-700 p-4 w-full outline-none focus:outline-none focus:border-gray-300 duration-300"
+              className="bg-transparent rounded-full border border-gray-500 p-4 w-full outline-none focus:outline-none focus:border-gray-300 duration-300 placeholder:text-gray-300"
             />
             <MyInput
               type="password"
               name="password"
               placeholder="Password"
-              className="bg-transparent rounded-full border border-gray-700 p-4 w-full outline-none focus:outline-none focus:border-gray-300 duration-300"
+              className="bg-transparent rounded-full border border-gray-500 p-4 w-full outline-none focus:outline-none focus:border-gray-300 duration-300 placeholder:text-gray-300"
             />
           </div>
           <div className="mt-10 relative">
             <MyButton
               type="submit"
               variant={"secondary"}
-              className="bg-[#585858] rounded-full border border-gray-700 p-4 w-full hover:bg-transparent duration-300"
+              className="bg-[#585858] rounded-full border border-gray-700 p-4 w-full hover:bg-[#757575] duration-300"
               loading={loginLoading}
             >
               Login

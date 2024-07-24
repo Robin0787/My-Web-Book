@@ -1,16 +1,15 @@
-import * as React from "react"
-import * as DialogPrimitive from "@radix-ui/react-dialog"
-import { X } from "lucide-react"
+import * as DialogPrimitive from "@radix-ui/react-dialog";
+import * as React from "react";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
-const Dialog = DialogPrimitive.Root
+const Dialog = DialogPrimitive.Root;
 
-const DialogTrigger = DialogPrimitive.Trigger
+const DialogTrigger = DialogPrimitive.Trigger;
 
-const DialogPortal = DialogPrimitive.Portal
+const DialogPortal = DialogPrimitive.Portal;
 
-const DialogClose = DialogPrimitive.Close
+const DialogClose = DialogPrimitive.Close;
 
 const DialogOverlay = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Overlay>,
@@ -24,8 +23,8 @@ const DialogOverlay = React.forwardRef<
     )}
     {...props}
   />
-))
-DialogOverlay.displayName = DialogPrimitive.Overlay.displayName
+));
+DialogOverlay.displayName = DialogPrimitive.Overlay.displayName;
 
 const DialogContent = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Content>,
@@ -42,14 +41,14 @@ const DialogContent = React.forwardRef<
       {...props}
     >
       {children}
-      <DialogPrimitive.Close className="tailwind.config.tsabsolute tailwind.config.tsright-4 tailwind.config.tstop-4 tailwind.config.tsrounded-sm tailwind.config.tsopacity-70 tailwind.config.tsring-offset-white tailwind.config.tstransition-opacity hover:tailwind.config.tsopacity-100 focus:tailwind.config.tsoutline-none focus:tailwind.config.tsring-2 focus:tailwind.config.tsring-slate-950 focus:tailwind.config.tsring-offset-2 disabled:tailwind.config.tspointer-events-none data-[state=open]:tailwind.config.tsbg-slate-100 data-[state=open]:tailwind.config.tstext-slate-500 dark:tailwind.config.tsring-offset-slate-950 dark:focus:tailwind.config.tsring-slate-300 dark:data-[state=open]:tailwind.config.tsbg-slate-800 dark:data-[state=open]:tailwind.config.tstext-slate-400">
+      {/* <DialogPrimitive.Close className="tailwind.config.tsabsolute tailwind.config.tsright-4 tailwind.config.tstop-4 tailwind.config.tsrounded-sm tailwind.config.tsopacity-70 tailwind.config.tsring-offset-white tailwind.config.tstransition-opacity hover:tailwind.config.tsopacity-100 focus:tailwind.config.tsoutline-none focus:tailwind.config.tsring-2 focus:tailwind.config.tsring-slate-950 focus:tailwind.config.tsring-offset-2 disabled:tailwind.config.tspointer-events-none data-[state=open]:tailwind.config.tsbg-slate-100 data-[state=open]:tailwind.config.tstext-slate-500 dark:tailwind.config.tsring-offset-slate-950 dark:focus:tailwind.config.tsring-slate-300 dark:data-[state=open]:tailwind.config.tsbg-slate-800 dark:data-[state=open]:tailwind.config.tstext-slate-400">
         <X className="tailwind.config.tsh-4 tailwind.config.tsw-4" />
         <span className="tailwind.config.tssr-only">Close</span>
-      </DialogPrimitive.Close>
+      </DialogPrimitive.Close> */}
     </DialogPrimitive.Content>
   </DialogPortal>
-))
-DialogContent.displayName = DialogPrimitive.Content.displayName
+));
+DialogContent.displayName = DialogPrimitive.Content.displayName;
 
 const DialogHeader = ({
   className,
@@ -62,8 +61,8 @@ const DialogHeader = ({
     )}
     {...props}
   />
-)
-DialogHeader.displayName = "DialogHeader"
+);
+DialogHeader.displayName = "DialogHeader";
 
 const DialogFooter = ({
   className,
@@ -76,8 +75,8 @@ const DialogFooter = ({
     )}
     {...props}
   />
-)
-DialogFooter.displayName = "DialogFooter"
+);
+DialogFooter.displayName = "DialogFooter";
 
 const DialogTitle = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Title>,
@@ -91,8 +90,8 @@ const DialogTitle = React.forwardRef<
     )}
     {...props}
   />
-))
-DialogTitle.displayName = DialogPrimitive.Title.displayName
+));
+DialogTitle.displayName = DialogPrimitive.Title.displayName;
 
 const DialogDescription = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Description>,
@@ -100,21 +99,24 @@ const DialogDescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <DialogPrimitive.Description
     ref={ref}
-    className={cn("tailwind.config.tstext-sm tailwind.config.tstext-slate-500 dark:tailwind.config.tstext-slate-400", className)}
+    className={cn(
+      "tailwind.config.tstext-sm tailwind.config.tstext-slate-500 dark:tailwind.config.tstext-slate-400",
+      className
+    )}
     {...props}
   />
-))
-DialogDescription.displayName = DialogPrimitive.Description.displayName
+));
+DialogDescription.displayName = DialogPrimitive.Description.displayName;
 
 export {
   Dialog,
-  DialogPortal,
-  DialogOverlay,
   DialogClose,
-  DialogTrigger,
   DialogContent,
-  DialogHeader,
-  DialogFooter,
-  DialogTitle,
   DialogDescription,
-}
+  DialogFooter,
+  DialogHeader,
+  DialogOverlay,
+  DialogPortal,
+  DialogTitle,
+  DialogTrigger,
+};

@@ -143,7 +143,7 @@ function AddCategoryDialog({
               <MyButton
                 type="submit"
                 variant={"secondary"}
-                className="bg-[#585858] rounded-full border border-gray-700 p-4 w-full hover:bg-transparent duration-300"
+                className="bg-[#585858] rounded-full border border-gray-700 p-4  pb-3 w-full hover:bg-transparent duration-300"
                 loading={submitLoading}
               >
                 Create

@@ -14,6 +14,7 @@ interface TMyButtonProps {
     | "ghost"
     | "link";
   type?: "button" | "submit" | "reset";
+  onClick?: () => void;
 }
 
 const MyButton = ({
@@ -22,9 +23,15 @@ const MyButton = ({
   children,
   variant,
   type,
+  onClick,
 }: TMyButtonProps) => {
   return (
-    <Button type={type || "button"} variant={variant} className={className}>
+    <Button
+      type={type || "button"}
+      variant={variant}
+      className={className}
+      onClick={onClick}
+    >
       {loading ? (
         <CircleLoader loader={loading} height="18px" width="18px" />
       ) : (

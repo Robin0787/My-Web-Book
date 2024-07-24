@@ -7,6 +7,44 @@ import { TCategory } from "@/types/types.category";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+const dummyData: TCategory[] = [
+  {
+    _id: "01",
+    name: "Home",
+    icon: "FaHome",
+    addedBy: "robin@gmail.com",
+    canBeDeleted: false,
+  },
+  {
+    _id: "02",
+    name: "Private",
+    icon: "FaHome",
+    addedBy: "robin@gmail.com",
+    canBeDeleted: true,
+  },
+  {
+    _id: "03",
+    name: "Social",
+    icon: "FaHome",
+    addedBy: "robin@gmail.com",
+    canBeDeleted: false,
+  },
+  {
+    _id: "04",
+    name: "Tools",
+    icon: "FaHome",
+    addedBy: "robin@gmail.com",
+    canBeDeleted: false,
+  },
+  {
+    _id: "05",
+    name: "Communication",
+    icon: "FaHome",
+    addedBy: "robin@gmail.com",
+    canBeDeleted: true,
+  },
+];
+
 const SideMenu = () => {
   const [openDialog, setOpenDialog] = useState(false);
   const { data, isLoading, isError, error } = useGetCategoriesQuery(undefined);
@@ -15,6 +53,7 @@ const SideMenu = () => {
     (isError && (error as any)?.data?.message) || (error as any)?.error;
 
   const categories: TCategory[] = data?.data || [];
+  console.log(categories);
 
   if (errorMessage === "jwt expired") {
     navigate("/login");
@@ -49,12 +88,12 @@ const SideMenu = () => {
             </>
           ) : (
             <>
-              {errorMessage ? (
+              {!errorMessage ? (
                 <div className="flex justify-center items-center h-full">
                   <p>{errorMessage}</p>
                 </div>
               ) : (
-                categories?.map((category) => (
+                dummyData?.map((category) => (
                   <MenuItem key={category._id} category={category} />
                 ))
               )}
