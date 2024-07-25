@@ -11,10 +11,11 @@ const MenuItem = ({ category }: { category: TCategory }) => {
   const dispatch = useAppDispatch();
 
   function handleClick() {
-    dispatch(setCategory(category.name.toLowerCase()));
+    dispatch(setCategory(category));
   }
 
-  const condition = currentCategory === category.name.toLowerCase();
+  const condition =
+    currentCategory?.name?.toLowerCase() === category.name.toLowerCase();
 
   return (
     <li className={condition ? "currentMenu" : "menu"} onClick={handleClick}>

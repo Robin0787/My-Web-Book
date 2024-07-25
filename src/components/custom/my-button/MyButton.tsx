@@ -4,7 +4,7 @@ import CircleLoader from "../loaders/CircleLoader";
 
 interface TMyButtonProps {
   className: string;
-  loading: boolean;
+  loading?: boolean;
   children: ReactNode | string;
   variant:
     | "default"

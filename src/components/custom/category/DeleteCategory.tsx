@@ -1,7 +1,15 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { DialogHeader } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
+import { useDeleteCategoryMutation } from "@/redux/features/category/category.api";
+import {
+  clearCategory,
+  selectCurrentCategory,
+} from "@/redux/features/category/category.slice";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { FaTrashAlt } from "react-icons/fa";
 import MyButton from "../my-button/MyButton";
 import MyDialog from "../my-dialog/MyDialog";
@@ -9,15 +17,29 @@ import {} from "../my-form/MyDropDown";
 import MyForm from "../my-form/MyForm";
 
 const DeleteCategory = () => {
+  const [deleteCategory] = useDeleteCategoryMutation();
   const [deleteModal, setDeleteModal] = useState<boolean>(false);
   const [submitLoading, setSubmitLoading] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | undefined>(
     undefined
   );
+  const currentCategory = useAppSelector(selectCurrentCategory);
+  const dispatch = useAppDispatch();
 
-  function handleDeleteCategory() {
-    console.log("Deleted");
-    closeDeleteModal();
+  async function handleDeleteCategory() {
+    setSubmitLoading(true);
+    try {
+      const res = await deleteCategory(currentCategory!._id).unwrap();
+      if (res.success) {
+        closeDeleteModal();
+        dispatch(clearCategory());
+        toast.success(res.message || "Successful");
+      }
+      setSubmitLoading(false);
+    } catch (error: any) {
+      setSubmitLoading(false);
+      setErrorMessage(error.message || "Something went wrong!");
+    }
   }
 
   function openDeleteModal() {
@@ -46,7 +68,6 @@ const DeleteCategory = () => {
             variant={"default"}
             onClick={closeDeleteModal}
             className="bg-[#585858] rounded-full border border-gray-700 p-3 w-full hover:bg-transparent duration-300"
-            loading={submitLoading}
           >
             Cancel
           </MyButton>

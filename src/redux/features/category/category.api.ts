@@ -10,6 +10,12 @@ export const CategoryAPI = baseApi.injectEndpoints({
       }),
       providesTags: ["Categories"],
     }),
+    getSingleCategory: builder.query({
+      query: (name: string) => ({
+        url: `/categories/${name}`,
+        method: "GET",
+      }),
+    }),
     createCategory: builder.mutation({
       query: (data: TCreateCategory) => ({
         url: "/categories/create",
@@ -18,7 +24,31 @@ export const CategoryAPI = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["Categories"],
     }),
+    editCategory: builder.mutation({
+      query: (payload: {
+        categoryId: string;
+        data: Partial<TCreateCategory>;
+      }) => ({
+        url: `/categories/update/${payload.categoryId}`,
+        method: "PATCH",
+        body: payload.data,
+      }),
+      invalidatesTags: ["Categories"],
+    }),
+    deleteCategory: builder.mutation({
+      query: (categoryId: string) => ({
+        url: `/categories/delete/${categoryId}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Categories"],
+    }),
   }),
 });
 
-export const { useGetCategoriesQuery, useCreateCategoryMutation } = CategoryAPI;
+export const {
+  useGetCategoriesQuery,
+  useGetSingleCategoryQuery,
+  useCreateCategoryMutation,
+  useEditCategoryMutation,
+  useDeleteCategoryMutation,
+} = CategoryAPI;

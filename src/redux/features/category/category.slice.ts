@@ -1,25 +1,29 @@
 import { RootState } from "@/redux/store";
+import { TCategory } from "@/types/types.category";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 type TInitialCategoryState = {
-  value: undefined | string;
+  value: undefined | TCategory;
 };
 
 const initialState: TInitialCategoryState = {
-  value: 'home',
+  value: undefined,
 };
 
 const categorySlice = createSlice({
   name: "category",
   initialState,
   reducers: {
-    setCategory: (state, action: PayloadAction<string>) => {
+    setCategory: (state, action: PayloadAction<TCategory>) => {
       state.value = action.payload;
+    },
+    clearCategory: (state) => {
+      state.value = undefined;
     },
   },
 });
 
-export const { setCategory } = categorySlice.actions;
+export const { setCategory, clearCategory } = categorySlice.actions;
 
 export default categorySlice.reducer;
 

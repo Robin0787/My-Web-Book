@@ -1,10 +1,19 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { DialogHeader } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
+import { useEditCategoryMutation } from "@/redux/features/category/category.api";
+import {
+  selectCurrentCategory,
+  setCategory,
+} from "@/redux/features/category/category.slice";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { createCategoryValidationSchema } from "@/schemas/category.schema";
+import { TCreateCategory } from "@/types/types.category";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { useState } from "react";
 import { FieldValues } from "react-hook-form";
+import toast from "react-hot-toast";
 import { FaEdit } from "react-icons/fa";
 import Icon from "../icon/Icon";
 import iconNames from "../icon/icon.name";
@@ -26,26 +35,51 @@ const categoryOptions: TOptionItem[] = [
 ];
 
 const EditCategory = () => {
+  const currentCategory = useAppSelector(selectCurrentCategory);
+  const [categoryIconName, setCategoryIconName] = useState<string | undefined>(
+    currentCategory?.icon
+  );
+  const dispatch = useAppDispatch();
   const [editModal, setEditModal] = useState<boolean>(false);
-  const [categoryIconName, setCategoryIconName] = useState<string | null>(null);
   const [submitLoading, setSubmitLoading] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | undefined>(
     undefined
   );
+  const [editCategory] = useEditCategoryMutation();
 
-  function handleEditCategory(data: FieldValues) {
+  async function handleEditCategory(data: FieldValues) {
+    if (!categoryIconName) {
+      setCategoryIconName(currentCategory?.icon);
+    }
+    data.icon = categoryIconName;
     if (data.canBeDeleted === "Yes") {
       data.canBeDeleted = true;
     } else {
       data.canBeDeleted = false;
     }
-
-    setSubmitLoading(true);
-    console.log(data);
-    setSubmitLoading(false);
-
-    setErrorMessage(undefined);
-    closeEditModal();
+    const editCategoryInfo: Partial<TCreateCategory> = {
+      name: data.name,
+      icon: data.icon,
+      canBeDeleted: data.canBeDeleted,
+    };
+    try {
+      setSubmitLoading(true);
+      const payload: { categoryId: string; data: Partial<TCreateCategory> } = {
+        categoryId: currentCategory!._id,
+        data: editCategoryInfo,
+      };
+      const res = await editCategory(payload).unwrap();
+      if (res.success) {
+        toast.success(res.message || "Successful");
+        dispatch(setCategory(res.data));
+        setSubmitLoading(false);
+        setErrorMessage(undefined);
+        closeEditModal();
+      }
+    } catch (error: any) {
+      setSubmitLoading(false);
+      setErrorMessage(error.message || "Something went wrong!");
+    }
   }
 
   function openEditModal() {
@@ -54,6 +88,13 @@ const EditCategory = () => {
   function closeEditModal() {
     setEditModal(false);
   }
+
+  const defaultValues = {
+    name: currentCategory?.name,
+    icon: currentCategory?.icon,
+    canBeDeleted: currentCategory?.canBeDeleted ? "Yes" : "No",
+  };
+
   return (
     <MyDialog
       isOpen={editModal}
@@ -70,14 +111,15 @@ const EditCategory = () => {
       </DialogHeader>
       <MyForm
         onSubmit={handleEditCategory}
+        defaultValues={defaultValues}
         resolver={zodResolver(createCategoryValidationSchema)}
-        defaultValues={{ name: "Home", canBeDeleted: "Yes" }}
       >
         <div className="w-full space-y-6">
           <MyInput
             type="name"
             name="name"
             placeholder="Name"
+            defaultValue={defaultValues.name}
             className="bg-transparent rounded-full border border-gray-700 px-5 py-[10px] w-full outline-none focus:outline-none focus:border-gray-300 duration-300 placeholder:text-xs"
           />
           <div

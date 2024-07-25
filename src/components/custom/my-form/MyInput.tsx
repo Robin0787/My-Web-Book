@@ -9,6 +9,7 @@ interface TInputProps {
   className?: string;
   placeholder?: string;
   value?: any;
+  defaultValue?: any;
   disabled?: boolean;
 }
 
@@ -18,6 +19,7 @@ const MyInput = ({
   name,
   placeholder,
   value,
+  defaultValue,
   disabled,
 }: TInputProps) => {
   return (
@@ -41,6 +43,7 @@ const MyInput = ({
             value={value}
             className={cn(className)}
             placeholder={placeholder}
+            defaultValue={defaultValue}
             disabled={disabled}
             autoComplete="off"
           />

@@ -8,16 +8,22 @@ const MainItemFooter = () => {
   const category = useAppSelector(selectCurrentCategory);
   return (
     <div className="w-full flex justify-between items-center">
-      <div className="flex justify-start items-center gap-4">
-        <h1 className="uppercase text-white font-semibold 2xl:text-lg">
-          {category || "Home"}
-        </h1>
-        <div className="flex justify-start items-center gap-[6px]">
-          <EditCategory />
-          <DeleteCategory />
-        </div>
-      </div>
-      <AddWebsite />
+      {category ? (
+        <>
+          <div className="flex justify-start items-center gap-4">
+            <h1 className="uppercase text-white font-semibold 2xl:text-lg">
+              {category?.name}
+            </h1>
+            <div className="flex justify-start items-center gap-[6px]">
+              <EditCategory />
+              {category.canBeDeleted ? <DeleteCategory /> : ""}
+            </div>
+          </div>
+          <AddWebsite />
+        </>
+      ) : (
+        ""
+      )}
     </div>
   );
 };

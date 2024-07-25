@@ -12,7 +12,9 @@ import { useNavigate } from "react-router-dom";
 const Home = () => {
   const category = useAppSelector(selectCurrentCategory);
   const navigate = useNavigate();
-  const { data, isError, error, isLoading } = useGetWebsitesQuery(category);
+  const { data, isError, error, isLoading } = useGetWebsitesQuery(
+    category?.name
+  );
   const errorMessage =
     (isError && (error as any)?.data?.message) || (error as any)?.error;
   const websites: TWebsite[] = data?.data || [];
