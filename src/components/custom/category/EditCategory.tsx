@@ -124,7 +124,7 @@ const EditCategory = () => {
           />
           <div
             id="iconList"
-            className="relative w-full max-h-[138px] rounded-xl bg-[#262626] px-5 pb-2 pt-8 border border-gray-700 flex flex-wrap gap-2 justify-evenly items-center  overflow-auto"
+            className="relative w-full max-h-[154px] rounded-xl bg-[#262626] px-5 pb-2 pt-8 border border-gray-700 flex flex-wrap gap-2 justify-evenly items-center  overflow-auto"
           >
             <span className="absolute top-2 left-1/2 -translate-x-1/2 text-gray-300">
               Select an icon
