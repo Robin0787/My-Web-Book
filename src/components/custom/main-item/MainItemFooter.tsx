@@ -11,7 +11,7 @@ const MainItemFooter = () => {
       {category ? (
         <>
           <div className="flex justify-start items-center gap-4">
-            <h1 className="uppercase text-white font-semibold 2xl:text-lg">
+            <h1 className="capitalize text-white font-semibold 2xl:text-lg">
               {category?.name}
             </h1>
             <div className="flex justify-start items-center gap-[6px]">

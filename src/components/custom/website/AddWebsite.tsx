@@ -53,7 +53,7 @@ const AddWebsite = () => {
       const payload: TCreateWebsite = {
         name: data.name,
         url: data.url,
-        category: currentCategory!._id,
+        category: currentCategory!.name,
         rounded: data.rounded,
       };
       const res = await createWebsite(payload).unwrap();
