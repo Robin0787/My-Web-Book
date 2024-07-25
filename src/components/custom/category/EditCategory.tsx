@@ -78,7 +78,7 @@ const EditCategory = () => {
       }
     } catch (error: any) {
       setSubmitLoading(false);
-      setErrorMessage(error.message || "Something went wrong!");
+      setErrorMessage(error?.data?.message || "Something went wrong!");
     }
   }
 

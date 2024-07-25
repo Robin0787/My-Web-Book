@@ -7,6 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { cn } from "@/lib/utils";
 
 export type TOptionItem = {
   value: string;
@@ -23,8 +24,17 @@ const MyDropDown = ({ name, options, placeholder }: TInputSelectProps) => {
   return (
     <FormField
       name={name}
-      render={({ field }) => (
-        <FormItem>
+      render={({ field, fieldState: { error } }) => (
+        <FormItem className="relative">
+          {error && (
+            <small
+              className={cn(
+                "absolute -bottom-5 left-4 text-gray-400 font-semibold tracking-[0.5px]"
+              )}
+            >
+              {error?.message}
+            </small>
+          )}
           <Select onValueChange={field.onChange}>
             <SelectTrigger className="flex justify-between items-center gap-2 bg-transparent rounded-full border border-gray-700 px-5 py-[10px] w-full outline-none focus:outline-none  duration-300 text-xs tracking-[0.5px] text-gray-100 hover:border-gray-300 hover:text-gray-200">
               <SelectValue placeholder={placeholder} className="capitalize" />

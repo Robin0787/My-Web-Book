@@ -14,4 +14,7 @@ export const createWebsiteValidationSchema = z.object({
     required_error: "url is required",
     invalid_type_error: "url must be a string",
   }),
+  rounded: z.string({
+    required_error: "rounded is required",
+  }),
 });

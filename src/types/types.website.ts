@@ -8,3 +8,10 @@ export interface TWebsite {
   category: TCategory;
   rounded: boolean;
 }
+
+export interface TCreateWebsite {
+  name: string;
+  url: string;
+  category: string;
+  rounded: boolean;
+}

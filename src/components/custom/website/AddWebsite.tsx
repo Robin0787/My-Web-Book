@@ -1,15 +1,33 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { DialogHeader } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
+import { selectCurrentCategory } from "@/redux/features/category/category.slice";
+import { useCreateWebsiteMutation } from "@/redux/features/website/website.api";
+import { useAppSelector } from "@/redux/hooks";
 import { createWebsiteValidationSchema } from "@/schemas/website.schema";
+import { TCreateWebsite } from "@/types/types.website";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { useState } from "react";
 import { FieldValues } from "react-hook-form";
+import toast from "react-hot-toast";
 import { IoAddCircle } from "react-icons/io5";
 import MyButton from "../my-button/MyButton";
 import MyDialog from "../my-dialog/MyDialog";
+import MyDropDown, { TOptionItem } from "../my-form/MyDropDown";
 import MyForm from "../my-form/MyForm";
 import MyInput from "../my-form/MyInput";
+
+const roundedOptions: TOptionItem[] = [
+  {
+    value: "Yes",
+    label: "Yes",
+  },
+  {
+    value: "No",
+    label: "No",
+  },
+];
 
 const AddWebsite = () => {
   const [websiteModal, setWebsiteModal] = useState<boolean>(false);
@@ -17,13 +35,38 @@ const AddWebsite = () => {
   const [errorMessage, setErrorMessage] = useState<string | undefined>(
     undefined
   );
+  const currentCategory = useAppSelector(selectCurrentCategory);
+  const [createWebsite] = useCreateWebsiteMutation();
 
-  function handleEditCategory(data: FieldValues) {
+  async function handleEditCategory(data: FieldValues) {
+    if (!data.rounded) {
+      setErrorMessage("select rounded is required!");
+      return;
+    }
+    if (data.rounded === "Yes") {
+      data.rounded = true;
+    } else {
+      data.rounded = false;
+    }
     setSubmitLoading(true);
-    console.log(data);
-    setSubmitLoading(false);
-
-    setErrorMessage(undefined);
+    try {
+      const payload: TCreateWebsite = {
+        name: data.name,
+        url: data.url,
+        category: currentCategory!._id,
+        rounded: data.rounded,
+      };
+      const res = await createWebsite(payload).unwrap();
+      if (res.success) {
+        toast.success(res.message || "Successful");
+        setSubmitLoading(false);
+        closeWebsiteModal();
+      }
+    } catch (error: any) {
+      console.log(error);
+      setSubmitLoading(false);
+      setErrorMessage(error?.data?.message || "Something went wrong!");
+    }
   }
 
   function openWebsiteModal() {
@@ -63,6 +106,11 @@ const AddWebsite = () => {
             name="url"
             placeholder="URL"
             className="bg-transparent rounded-full border border-gray-700 px-5 py-[10px] w-full outline-none focus:outline-none focus:border-gray-300 duration-300 placeholder:text-xs"
+          />
+          <MyDropDown
+            name="rounded"
+            placeholder="Select rounded (for logo)"
+            options={roundedOptions}
           />
         </div>
         <div className="mt-10 relative">

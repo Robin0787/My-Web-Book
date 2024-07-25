@@ -1,3 +1,4 @@
+import { TCreateWebsite } from "@/types/types.website";
 import { baseApi } from "../../baseApi";
 
 export const WebsiteAPI = baseApi.injectEndpoints({
@@ -14,8 +15,17 @@ export const WebsiteAPI = baseApi.injectEndpoints({
           params: searchParams,
         };
       },
+      providesTags: ["Websites"],
+    }),
+    createWebsite: builder.mutation({
+      query: (data: TCreateWebsite) => ({
+        url: "/websites/create",
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["Websites"],
     }),
   }),
 });
 
-export const { useGetWebsitesQuery } = WebsiteAPI;
+export const { useGetWebsitesQuery, useCreateWebsiteMutation } = WebsiteAPI;

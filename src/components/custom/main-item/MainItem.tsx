@@ -6,9 +6,7 @@ const MainItem = ({ item }: { item: TWebsite }) => {
   const { logo, name, url, rounded } = item;
 
   return (
-    <div
-      className="bg-black/10  rounded-lg relative group border border-gray-700  hover:bg-black/30 duration-300"
-    >
+    <div className="bg-black/10  rounded-lg relative group border border-gray-700  hover:bg-black/30 duration-300">
       <div className="h-full py-5 px-3 2xl:py-7 2xl:px-5 overflow-hidden">
         <div className="w-full h-full">
           {/* Logo Field */}
@@ -27,7 +25,7 @@ const MainItem = ({ item }: { item: TWebsite }) => {
           {/* Name Field */}
           <div className="w-full mt-5">
             <div
-              className="w-full bg-[#ffffff10] py-1 px-3 2xl:py-2 rounded-lg text-center cursor-pointer hover:bg-[#ffffff20] duration-300 item-name overflow-hidden"
+              className="w-full capitalize bg-[#ffffff10] py-1 px-3 2xl:py-2 rounded-lg text-center cursor-pointer hover:bg-[#ffffff20] duration-300 item-name overflow-hidden"
               onClick={() => {
                 window.open(url);
               }}
