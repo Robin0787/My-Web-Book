@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { selectCurrentCategory } from "@/redux/features/category/category.slice";
 import { useGetWebsitesQuery } from "@/redux/features/website/website.api";
 import { useAppSelector } from "@/redux/hooks";
+import { TMeta } from "@/types/types.global";
 import { TWebsite } from "@/types/types.website";
 import { useNavigate } from "react-router-dom";
 
@@ -22,6 +23,8 @@ const Home = () => {
   if (errorMessage === "jwt expired") {
     navigate("/login");
   }
+
+  const meta: TMeta = data?.meta || {};
 
   return (
     <section className={cn("h-full w-full rounded-lg")}>
@@ -48,7 +51,7 @@ const Home = () => {
         </section>
       </section>
       <section className="h-[10%] w-full bg-[#00000035] rounded-b-lg px-5 flex justify-center items-center overflow-hidden">
-        <MainItemFooter />
+        <MainItemFooter meta={meta} />
       </section>
     </section>
   );

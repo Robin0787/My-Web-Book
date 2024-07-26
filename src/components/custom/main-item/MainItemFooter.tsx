@@ -1,10 +1,12 @@
 import { selectCurrentCategory } from "@/redux/features/category/category.slice";
 import { useAppSelector } from "@/redux/hooks";
+import { TMeta } from "@/types/types.global";
 import DeleteCategory from "../category/DeleteCategory";
 import EditCategory from "../category/EditCategory";
 import AddWebsite from "../website/AddWebsite";
 
-const MainItemFooter = () => {
+const MainItemFooter = ({ meta }: { meta: TMeta }) => {
+  console.log(meta);
   const category = useAppSelector(selectCurrentCategory);
   return (
     <div className="w-full flex justify-between items-center">
@@ -18,6 +20,9 @@ const MainItemFooter = () => {
               <EditCategory />
               {category.canBeDeleted ? <DeleteCategory /> : ""}
             </div>
+          </div>
+          <div className="flex justify-center items-center border rounded-lg p-2">
+            Pagination
           </div>
           <AddWebsite />
         </>

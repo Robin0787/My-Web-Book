@@ -1,26 +1,34 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { DialogHeader } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
+import { useDeleteWebsiteMutation } from "@/redux/features/website/website.api";
+import { TWebsite } from "@/types/types.website";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { FaTrashAlt } from "react-icons/fa";
 import MyButton from "../my-button/MyButton";
 import MyDialog from "../my-dialog/MyDialog";
 import {} from "../my-form/MyDropDown";
 import MyForm from "../my-form/MyForm";
 
-const DeleteWebsite = () => {
+const DeleteWebsite = ({ item }: { item: TWebsite }) => {
   const [deleteModal, setDeleteModal] = useState<boolean>(false);
   const [submitLoading, setSubmitLoading] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | undefined>(
     undefined
   );
+  const [deleteWebsite] = useDeleteWebsiteMutation();
 
   async function handleDeleteCategory() {
     setSubmitLoading(true);
     try {
-      console.log("Deleted");
-      setSubmitLoading(false);
+      const res = await deleteWebsite(item._id).unwrap();
+      if (res.success) {
+        setSubmitLoading(false);
+        toast.success(res.message || "Successful");
+        setErrorMessage(undefined);
+      }
       closeDeleteModal();
     } catch (error: any) {
       setSubmitLoading(false);
@@ -33,6 +41,7 @@ const DeleteWebsite = () => {
   }
   function closeDeleteModal() {
     setDeleteModal(false);
+    setErrorMessage(undefined);
   }
   return (
     <MyDialog

@@ -87,6 +87,7 @@ const EditCategory = () => {
   }
   function closeEditModal() {
     setEditModal(false);
+    setErrorMessage(undefined);
   }
 
   const defaultValues = {

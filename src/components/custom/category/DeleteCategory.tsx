@@ -47,6 +47,7 @@ const DeleteCategory = () => {
   }
   function closeDeleteModal() {
     setDeleteModal(false);
+    setErrorMessage(undefined);
   }
   return (
     <MyDialog

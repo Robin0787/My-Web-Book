@@ -1,4 +1,4 @@
-import { TCreateWebsite } from "@/types/types.website";
+import { TCreateWebsite, TWebsite } from "@/types/types.website";
 import { baseApi } from "../../baseApi";
 
 export const WebsiteAPI = baseApi.injectEndpoints({
@@ -25,7 +25,27 @@ export const WebsiteAPI = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["Websites"],
     }),
+    editWebsite: builder.mutation({
+      query: (payload: { id: string; data: Partial<TWebsite> }) => ({
+        url: `/websites/update/${payload.id}`,
+        method: "PATCH",
+        body: payload.data,
+      }),
+      invalidatesTags: ["Websites"],
+    }),
+    deleteWebsite: builder.mutation({
+      query: (websiteId: string) => ({
+        url: `/websites/delete/${websiteId}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Websites"],
+    }),
   }),
 });
 
-export const { useGetWebsitesQuery, useCreateWebsiteMutation } = WebsiteAPI;
+export const {
+  useGetWebsitesQuery,
+  useCreateWebsiteMutation,
+  useEditWebsiteMutation,
+  useDeleteWebsiteMutation,
+} = WebsiteAPI;

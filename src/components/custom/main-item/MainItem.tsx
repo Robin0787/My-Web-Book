@@ -48,13 +48,13 @@ const MainItem = ({ item }: { item: TWebsite }) => {
               </h4>
             </div>
             <div className="w-[15%] bg-[#ffffff12] text-primary rounded-r-lg text-center flex justify-center items-center hover:bg-[#ffffff20] duration-300 cursor-pointer">
-              <EditWebsite />
+              <EditWebsite item={item} />
             </div>
           </div>
           {/* delete button field */}
           <div className="text-primary absolute top-2 -right-6 group-hover:right-2 rounded-lg duration-300 cursor-pointer">
             <div>
-              <DeleteWebsite />
+              <DeleteWebsite item={item} />
             </div>
           </div>
         </div>
