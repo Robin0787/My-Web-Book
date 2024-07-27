@@ -2,6 +2,7 @@ import {
   selectCurrentCategory,
   setCategory,
 } from "@/redux/features/category/category.slice";
+import { setPage } from "@/redux/features/pagination/pagination.slice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { TCategory } from "@/types/types.category";
 import Icon from "../icon/Icon";
@@ -12,6 +13,7 @@ const MenuItem = ({ category }: { category: TCategory }) => {
 
   function handleClick() {
     dispatch(setCategory(category));
+    dispatch(setPage(1));
   }
 
   const condition =

@@ -16,7 +16,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           position="bottom-right"
           toastOptions={{
             className:
-              "bg-[#262626] px-4 py-2 rounded border border-gray-500 text-green-400",
+              "bg-[#262626] px-4 py-2 rounded border border-gray-500 text-white tracking-[0.5px]",
           }}
         />
       </ReduxPersistProvider>

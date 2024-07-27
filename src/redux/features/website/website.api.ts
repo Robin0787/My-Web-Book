@@ -1,13 +1,19 @@
 import { TCreateWebsite, TWebsite } from "@/types/types.website";
 import { baseApi } from "../../baseApi";
 
+export interface TGetWebsiteProps {
+  category: string | undefined;
+  page?: number;
+}
+
 export const WebsiteAPI = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getWebsites: builder.query({
-      query: (category: string | undefined) => {
+      query: (payload: TGetWebsiteProps) => {
         const searchParams = new URLSearchParams();
-        if (category) {
-          searchParams.append("category", category);
+        searchParams.append("page", (payload.page || 1).toString());
+        if (payload.category) {
+          searchParams.append("category", payload.category);
         }
         return {
           url: "/websites",

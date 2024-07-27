@@ -53,7 +53,7 @@ const AddWebsite = () => {
       const payload: TCreateWebsite = {
         name: data.name,
         url: data.url,
-        category: currentCategory!.name,
+        category: currentCategory!._id,
         rounded: data.rounded,
       };
       const res = await createWebsite(payload).unwrap();
@@ -74,6 +74,7 @@ const AddWebsite = () => {
   }
   function closeWebsiteModal() {
     setWebsiteModal(false);
+    setErrorMessage(undefined);
   }
   return (
     <MyDialog

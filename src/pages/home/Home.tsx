@@ -4,7 +4,11 @@ import MainItemFooter from "@/components/custom/main-item/MainItemFooter";
 import MainItemSkeleton from "@/components/custom/main-item/MainItemSkeleton";
 import { cn } from "@/lib/utils";
 import { selectCurrentCategory } from "@/redux/features/category/category.slice";
-import { useGetWebsitesQuery } from "@/redux/features/website/website.api";
+import { selectCurrentPage } from "@/redux/features/pagination/pagination.slice";
+import {
+  TGetWebsiteProps,
+  useGetWebsitesQuery,
+} from "@/redux/features/website/website.api";
 import { useAppSelector } from "@/redux/hooks";
 import { TMeta } from "@/types/types.global";
 import { TWebsite } from "@/types/types.website";
@@ -12,19 +16,23 @@ import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const category = useAppSelector(selectCurrentCategory);
+  const currentPage = useAppSelector(selectCurrentPage);
   const navigate = useNavigate();
-  const { data, isError, error, isLoading } = useGetWebsitesQuery(
-    category?.name
-  );
+  const getWebsitePayload: TGetWebsiteProps = {
+    category: category?._id,
+    page: currentPage,
+  };
+  const { data, isError, error, isLoading } =
+    useGetWebsitesQuery(getWebsitePayload);
   const errorMessage =
     (isError && (error as any)?.data?.message) || (error as any)?.error;
+
   const websites: TWebsite[] = data?.data || [];
+  const meta: TMeta = data?.meta || {};
 
   if (errorMessage === "jwt expired") {
     navigate("/login");
   }
-
-  const meta: TMeta = data?.meta || {};
 
   return (
     <section className={cn("h-full w-full rounded-lg")}>
@@ -41,11 +49,17 @@ const Home = () => {
             <section className="h-full w-full flex justify-center items-center text-primary tracking-wider text-2xl capitalize">
               <h1>{errorMessage}</h1>
             </section>
+          ) : meta.data >= 1 ? (
+            <>
+              <section className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4  2xl:grid-cols-5 gap-5 pb-5">
+                {websites.map((item: TWebsite, index: number) => (
+                  <MainItem key={index} item={item} />
+                ))}
+              </section>
+            </>
           ) : (
-            <section className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4  2xl:grid-cols-5 gap-5">
-              {websites.map((item: TWebsite, index: number) => (
-                <MainItem key={index} item={item} />
-              ))}
+            <section className="h-full w-full flex justify-center items-center text-primary tracking-wider text-2xl capitalize">
+              <h1>No Websites found!</h1>
             </section>
           )}
         </section>
