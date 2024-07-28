@@ -1,30 +1,31 @@
-# React + TypeScript + Vite
+## Welcome to My Web Book
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### Live link of this application : `https://my-web-book.vercel.app`
 
-Currently, two official plugins are available:
+### Here are the steps to run the application in your local environment.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1 . Clone the repository using this command.
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+```
+git clone https://github.com/Robin0787/My-Web-Book-Client.git
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+2. Navigate to the folder.
+
+```
+cd My-Web-Book-Client
+```
+
+3 . Run the command to install all the dependencies.
+
+```
+npm install
+```
+
+4 . Then run this command below to start the application.
+
+```
+npm run dev
+```
+
+#### Now go the this address of your browser `http://localhost://7000` to see the output.
