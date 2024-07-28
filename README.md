@@ -28,4 +28,4 @@ npm install
 npm run dev
 ```
 
-#### Now go the this address of your browser `http://localhost://7000` to see the output.
+#### Now go the this address of your browser `http://localhost://5173` to see the output.
