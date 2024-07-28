@@ -1,6 +1,6 @@
 ## Welcome to My Web Book
 
-### Live link of this application : `https://my-web-book.vercel.app`
+### Live link of this application : https://my-weeb-book-client.vercel.app/
 
 ### Here are the steps to run the application in your local environment.
 
