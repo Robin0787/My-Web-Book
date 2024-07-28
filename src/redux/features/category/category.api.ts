@@ -40,7 +40,7 @@ export const CategoryAPI = baseApi.injectEndpoints({
         url: `/categories/delete/${categoryId}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["Categories"],
+      invalidatesTags: ["Categories", "Websites"],
     }),
   }),
 });
